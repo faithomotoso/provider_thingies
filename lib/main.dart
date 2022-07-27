@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:provider_thingies/domain/view_models/random_view_model.dart';
+import 'package:provider_thingies/domain/view_models/user_view_model.dart';
+import 'package:provider_thingies/ui/future_provider/future_provider_exp.dart';
 import 'package:provider_thingies/ui/provider_w_global_variable/page1.dart';
 
 void main() {
@@ -15,8 +17,11 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider.value(
-      value: randomViewModel,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider.value(value: randomViewModel),
+        ChangeNotifierProvider(create: (_) => UserViewModel())
+      ],
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
@@ -45,6 +50,12 @@ class EntryPoint extends StatelessWidget {
                 onTap: () {
                   Navigator.push(
                       context, MaterialPageRoute(builder: (ctx) => Intermid()));
+                }),
+            _button(
+                text: "Future provider",
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (ctx) => FutureProviderExp()));
                 }),
           ],
         ),
