@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:provider_thingies/domain/view_models/random_view_model.dart';
+import 'package:provider_thingies/domain/view_models/streams_view_model.dart';
 import 'package:provider_thingies/domain/view_models/user_view_model.dart';
 import 'package:provider_thingies/ui/future_provider/future_provider_exp.dart';
 import 'package:provider_thingies/ui/provider_w_global_variable/page1.dart';
+import 'package:provider_thingies/ui/streams_provider/h.dart';
 
 void main() {
   runApp(const MyApp());
@@ -20,7 +22,8 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider.value(value: randomViewModel),
-        ChangeNotifierProvider(create: (_) => UserViewModel())
+        ChangeNotifierProvider(create: (_) => UserViewModel()),
+        ChangeNotifierProvider(create: (_) => StreamsViewModel())
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
@@ -56,6 +59,12 @@ class EntryPoint extends StatelessWidget {
                 onTap: () {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (ctx) => FutureProviderExp()));
+                }),
+            _button(
+                text: "Streams",
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (ctx) => StreamsHome()));
                 }),
           ],
         ),
